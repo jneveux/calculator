@@ -1,0 +1,111 @@
+<div class="card">
+  <div class="card-block">
+    <div class="card-title">
+      <span *ngIf="legacy.selected"><h5>Selected Language: {{legacy.selected.name}}</h5></span>
+      <span *ngIf="!legacy.selected"><h5>Select your Language</h5></span>
+    </div>
+    <div class="btn-group" data-toggle="buttons">
+      <label class="btn btn-secondary" *ngFor="#lcode of legacy.legacyCode"
+             (click)="selectCode(lcode)"
+             [class.active]="legacy.selected == lcode">
+        <input type="radio"
+               [attr.checked]="legacy.selected == lcode"
+               autocomplete="off">{{ lcode.name }}
+      </label>
+    </div>
+    <span class="text-muted">Note: <span *ngIf="legacy.selected">{{legacy.selected.info}}</span></span>
+  </div>
+</div>
+<div class="card">
+  <div class="card-block">
+    <div class="card-title">
+      <h5>Define your main sizing factors</h5>
+    </div>
+    <form>
+      <div class="form-group row col-md-4">
+        <label>Lines Of Code (LOC)</label>
+        <div class="col-md-3">
+          <input type="number" id="legacyLOC" [(ngModel)]="legacy.loc" class="form-control"/>
+        </div>
+      </div>
+      <div class="form-group row col-md-4">
+        <label>Database Modernization</label>
+        <div class="col-md-3">
+          <div class="btn-group" data-toggle="buttons">
+            <label class="btn btn-secondary active">
+              <input type="radio" name="selectedDB" checked="true">No
+            </label>
+            <label class="btn btn-secondary">
+              <input type="radio" name="selectedDB">Yes
+            </label>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-block">
+    <div class="card-title">
+      <h5>Modernization estimates</h5>
+      <small class="text-muted">
+        You can refine your modernization budget by changing productivity ratio and delivery sourcing mix. For more
+        details, access Full Calculator / Budget Calculator.
+      </small>
+      <div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <label>{{legacy.locRatio}} {{locHour}}</label>
+            <div class="col-md-3" data-toggle="buttons">
+              <input type="range" min=0 max=3000 [(ngModel)]="legacy.locRatio" class="form-control"/>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>{{legacy.offshore}} % Offshore</label>
+            <div class="col-md-3" data-toggle="buttons">
+              <input type="range" min=0 max=100 [(ngModel)]="legacy.offshore" class="form-control"/>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="col-xs-6">Effort Built (hours)</div>
+          <div class="col-xs-6">0</div>
+          <div class="col-xs-6">Effort Project (hours)</div>
+          <div class="col-xs-6">0</div>
+          <div class="col-xs-6">Effort SDLC (SIT / UAT ) (hours)</div>
+          <div class="col-xs-6">0</div>
+          <div class="col-xs-6">Full Budget (USD)</div>
+          <div class="col-xs-6">0</div>
+          <div class="col-xs-6">Build Budget per LOC (USD)</div>
+          <div class="col-xs-6">0.00$</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+Choose your <a (click)="testClick()">Language</a>
+
+<form (ngSubmit)="submitState(localState.value)" autocomplete="off">
+  <label>{{data.value}}</label>
+  <input type="text" class="form-control" [(ngModel)]="localState.value" autofocus>
+  <button color="primary">Submit Value</button>
+</form>
+<!--
+  <input type="text" [value]="localState.value" (input)="localState.value = $event.target.value" autofocus>
+  Rather than wiring up two-way data-binding ourselves with [value] and (input)
+  we can use Angular's [(ngModel)] syntax
+  <input type="text" [(ngModel)]="localState.value" autofocus>
+-->
+<div>
+  For hot module reloading run
+  <pre>npm run start:hmr</pre>
+</div>
+
+<hr>
+<pre>
+      this.localState = {{ localState | json }}
+      this.legacy.selected = {{ legacy.selected | json }}
+
+    </pre>
+

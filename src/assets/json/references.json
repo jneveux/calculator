@@ -1,0 +1,88 @@
+{
+  "legacyCode": [
+    {
+      "name":"COBOL",
+      "id":1,
+      "info":"Including Cobol dialects ANSI, Ideal, Tandem / NonStop",
+      "locRatio":150
+    },
+    {
+      "name":"Packbase",
+      "id":2,
+      "info":"LOC is the number of lines for the generated Cobol code",
+      "locRatio":150
+    },
+    {
+      "name":"Cool:gen",
+      "id":3,
+      "info":"Cool:Gen for Cobol. LOC is the number of lines for the generated Cobol code",
+      "locRatio":150
+    },
+    {
+      "name":"RPG400",
+      "id":4,
+      "info":"",
+      "locRatio":150
+    },
+    {
+      "name":"PL/1",
+      "id":5,
+      "info":"",
+      "locRatio":150
+    },
+    {
+      "name":"Natural",
+      "id":6,
+      "info":"",
+      "locRatio":150
+    },
+    {
+      "name":"VAX BASIC",
+      "id":7,
+      "info":"",
+      "locRatio":70
+    },
+    {
+      "name":"FOXPRO",
+      "id":8,
+      "info":"",
+      "locRatio":80
+    },
+    {
+      "name":"Delphi",
+      "id":9,
+      "info":"",
+      "locRatio":70
+    },
+    {
+      "name":"PowerBuilder",
+      "id":10,
+      "info":"Up to version 11",
+      "locRatio":50
+    },
+    {
+      "name":"Informix 4GL",
+      "id":11,
+      "info":"LOC is the number of lines for the generated code",
+      "locRatio":150
+    },
+    {
+      "name":"Natstar",
+      "id":12,
+      "info":"",
+      "locRatio":40
+    },
+    {
+      "name":"Java",
+      "id":13,
+      "info":"",
+      "locRatio":50
+    },
+    {
+      "name":"Visual Basic",
+      "id":14,
+      "info":"Up to version 6",
+      "locRatio":60
+    }
+  ]
+}
