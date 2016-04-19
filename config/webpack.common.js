@@ -19,7 +19,7 @@ const autoprefixer = require('autoprefixer');
  * Webpack Constants
  */
 const METADATA = {
-  title: 'Blu Age - Project Calculator',
+  title: 'Project Calculator',
   baseUrl: '/'
 };
 
