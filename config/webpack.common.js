@@ -64,7 +64,7 @@ module.exports = {
     // An array of extensions that should be used to resolve modules.
     //
     // See: http://webpack.github.io/docs/configuration.html#resolve-extensions
-    extensions: ['', '.ts', '.js'],
+    extensions: ['', '.ts', '.js', '.scss'],
 
     // Make sure root is src
     root: helpers.root('src'),
@@ -148,7 +148,8 @@ module.exports = {
         exclude: [helpers.root('src/index.html')]
       },
 
-      { test: /\.scss$/, loaders: ['style', 'css', 'postcss', 'sass'] },
+      //{ test: /\.scss$/, loaders: ['style', 'css', 'postcss', 'sass'] },
+      { test: /.scss$/, loaders: ['raw-loader','sass-loader'] }, // Twice in the configuration??
       { test: /\.(woff2?|ttf|eot|svg)$/, loader: 'url?limit=10000' },
       // Bootstrap 4
       { test: /bootstrap\/dist\/js\/umd\//, loader: 'imports?jQuery=jquery' },

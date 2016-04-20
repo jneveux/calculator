@@ -7,9 +7,9 @@
     <div class="btn-group" data-toggle="buttons">
       <label class="btn btn-secondary" *ngFor="#lcode of legacy.legacyCode"
              (click)="selectCode(lcode)"
-             [class.active]="legacy.selected == lcode">
+             [class.active]="legacy.selected && legacy.selected.id == lcode.id">
         <input type="radio"
-               [attr.checked]="legacy.selected == lcode"
+               [attr.checked]="legacy.selected && legacy.selected.id == lcode.id"
                autocomplete="off">{{ lcode.name }}
       </label>
     </div>
@@ -69,43 +69,29 @@
           </div>
         </div>
         <div class="col-md-3">
-          <div class="col-xs-6">Effort Built (hours)</div>
-          <div class="col-xs-6">0</div>
-          <div class="col-xs-6">Effort Project (hours)</div>
-          <div class="col-xs-6">0</div>
-          <div class="col-xs-6">Effort SDLC (SIT / UAT ) (hours)</div>
-          <div class="col-xs-6">0</div>
-          <div class="col-xs-6">Full Budget (USD)</div>
-          <div class="col-xs-6">0</div>
-          <div class="col-xs-6">Build Budget per LOC (USD)</div>
-          <div class="col-xs-6">0.00$</div>
+          <div class="row">
+            <div class="col-xs-8">Effort Built (hours)</div>
+            <div class="col-xs-4">0</div>
+          </div>
+          <div class="row">
+            <div class="col-xs-8">Effort Project (hours)</div>
+            <div class="col-xs-4">0</div>
+          </div>
+          <div class="row">
+            <div class="col-xs-8">Effort SDLC (SIT / UAT ) (hours)</div>
+            <div class="col-xs-4">0</div>
+          </div>
+          <div class="row">
+            <div class="col-xs-8">Full Budget (USD)</div>
+            <div class="col-xs-4">0</div>
+          </div>
+          <div class="row">
+            <div class="col-xs-8">Build Budget per LOC (USD)</div>
+            <div class="col-xs-4">0.00$</div>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </div>
-Choose your <a (click)="testClick()">Language</a>
-
-<form (ngSubmit)="submitState(localState.value)" autocomplete="off">
-  <label>{{data.value}}</label>
-  <input type="text" class="form-control" [(ngModel)]="localState.value" autofocus>
-  <button color="primary">Submit Value</button>
-</form>
-<!--
-  <input type="text" [value]="localState.value" (input)="localState.value = $event.target.value" autofocus>
-  Rather than wiring up two-way data-binding ourselves with [value] and (input)
-  we can use Angular's [(ngModel)] syntax
-  <input type="text" [(ngModel)]="localState.value" autofocus>
--->
-<div>
-  For hot module reloading run
-  <pre>npm run start:hmr</pre>
-</div>
-
-<hr>
-<pre>
-      this.localState = {{ localState | json }}
-      this.legacy.selected = {{ legacy.selected | json }}
-
-    </pre>
 

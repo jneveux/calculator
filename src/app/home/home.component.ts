@@ -35,7 +35,7 @@ export class Home {
   // Set our default values
   localState = {value: ''};
   data = {};
-  locHour: string = "LOC / Hour";
+  locHour:string = "LOC / Hour";
   legacy:Legacy;
 
   constructor(public appState:AppState, public title:Title, public referenceService:ReferenceService) {
@@ -50,36 +50,40 @@ export class Home {
     this.legacy.loc = 0;
     this.legacy.locRatio = 0;
     this.legacy.offshore = 0;
+    if(this.appState.get('quickCalculator') != null) {
+      this.legacy = this.appState.get('quickCalculator');
+    }
   }
 
-  submitState(value) : void {
+  submitState(value):void {
     console.log('submitState', value);
     this.appState.set('value', value);
+    this.appState.set('quickCalculator', this.legacy);
   }
 
-  selectCode(value: LegacyCode) : void {
+  selectCode(value:LegacyCode):void {
     console.log('Selected value: ', value);
     this.legacy.selected = value;
     this.legacy.locRatio = value.locRatio;
   }
 
-  testClick() : void {
+  testClick():void {
     console.log('Clicked!');
     this.legacy.selected = this.legacy.legacyCode[0];
   }
 
-  changeValueOffshore(value: number) : void {
-    if(value === -1 && this.legacy.offshore >= 0) {
+  changeValueOffshore(value:number):void {
+    if (value === -1 && this.legacy.offshore >= 0) {
       this.legacy.offshore -= 5;
-    } else if(this.legacy.offshore <= 100) {
+    } else if (this.legacy.offshore <= 100) {
       this.legacy.offshore += 5;
     }
   }
 
-  changeValueLocRatio(value: number) : void {
-    if(value === -1 && this.legacy.locRatio >=0) {
+  changeValueLocRatio(value:number):void {
+    if (value === -1 && this.legacy.locRatio >= 0) {
       this.legacy.offshore -= 5;
-    } else if(this.legacy.offshore <= 3000) {
+    } else if (this.legacy.offshore <= 3000) {
       this.legacy.offshore += 5;
     }
   }

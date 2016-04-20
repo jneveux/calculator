@@ -14,31 +14,26 @@ import {RouterActive} from './router-active';
  */
 @Component({
   selector: 'app',
-  pipes: [ ],
-  providers: [ ],
-  directives: [ RouterActive ],
+  pipes: [],
+  providers: [],
+  directives: [RouterActive],
   encapsulation: ViewEncapsulation.None,
-  styles: [`
-    body {
-      min-height: 5rem;
-      padding-top: 4.5rem;
-      padding-bottom: 4.5rem;
-    }
-  `],
+  styles: [require('./app.scss')],
   template: require('./app.html')
 })
 @RouteConfig([
-  { path: '/Index',      name: 'Index', component: Home, useAsDefault: true },
-  { path: '/home',  name: 'Home',  component: Home },
+  {path: '/Index', name: 'Index', component: Home, useAsDefault: true},
+  {path: '/home', name: 'Home', component: Home},
   // Async load a component using Webpack's require with es6-promise-loader and webpack `require`
-  { path: '/about', name: 'About', loader: () => require('es6-promise!./about')('About') },
+  {path: '/about', name: 'About', loader: () => require('es6-promise!./about')('About')},
 ])
 export class App {
   angularclassLogo = 'assets/img/angularclass-avatar.png';
   name = 'Angular 2 Webpack Starter';
   url = 'https://twitter.com/AngularClass';
 
-  constructor(public appState: AppState) {}
+  constructor(public appState:AppState) {
+  }
 
   ngOnInit() {
     console.log('Initial App State', this.appState.state);
