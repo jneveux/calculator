@@ -1,5 +1,6 @@
 import {Component} from 'angular2/core';
 import {AppState} from '../app.service';
+import {AutoComplete} from '../../directives/autocomplete/autocomplete.directive';
 
 import {Title} from './title';
 import {XLarge} from './x-large';
@@ -22,7 +23,7 @@ interface Data {
   // We need to tell Angular's compiler which directives are in our template.
   // Doing so will allow Angular to attach our behavior to an element
   directives: [
-    XLarge
+    XLarge, AutoComplete
   ],
   // We need to tell Angular's compiler which custom pipes are in our template.
   pipes: [],
@@ -37,6 +38,12 @@ export class Home {
   data = {};
   locHour:string = "LOC / Hour";
   legacy:Legacy;
+  // Auto complete fields
+  texts:string;
+  results:LegacyCode[];
+  selectedLegacyCode:LegacyCode[] = [];
+
+  private _selectionEnd:number = 0;
 
   constructor(public appState:AppState, public title:Title, public referenceService:ReferenceService) {
 
@@ -50,7 +57,7 @@ export class Home {
     this.legacy.loc = 0;
     this.legacy.locRatio = 0;
     this.legacy.offshore = 0;
-    if(this.appState.get('quickCalculator') != null) {
+    if (this.appState.get('quickCalculator') != null) {
       this.legacy = this.appState.get('quickCalculator');
     }
   }
@@ -65,6 +72,64 @@ export class Home {
     console.log('Selected value: ', value);
     this.legacy.selected = value;
     this.legacy.locRatio = value.locRatio;
+  }
+
+  search(event):void {
+    this.results = [];
+    let eventTarget:HTMLInputElement = event.originalEvent.target;
+    let selectionStart:number = eventTarget.selectionStart;
+    this._selectionEnd = eventTarget.selectionEnd;
+    let arrSearch:string[] = event.query.split(' ');
+    let search:string = '';
+    if (arrSearch.length > 0) {
+      // selection is in the same segment.
+      if (selectionStart === this._selectionEnd && this._selectionEnd === this.texts.length) {
+        search = arrSearch[arrSearch.length - 1];
+      } else {
+        let idx:number = 0;
+        for (let i = 0; i < arrSearch.length; i++) {
+          idx += arrSearch[i].length;
+          if(this._selectionEnd >= idx ) {
+            search = arrSearch[i];
+          }
+        }
+      }
+    }
+    for (let i = 0; i < this.legacy.legacyCode.length; i++) {
+      if (this.legacy.legacyCode[i].name.toLocaleLowerCase().startsWith(event.query.toLowerCase())
+        || this.legacy.legacyCode[i].name.toLocaleLowerCase() === event.query.toLowerCase()) {
+        this.results.push(this.legacy.legacyCode[i]);
+      }
+    }
+  }
+
+  public onSelectAuto(event:LegacyCode):void {
+    // TODO: Replace text with selection.
+    debugger;
+    let arrSearch:string[] = this.texts.split(' ');
+    let idx:number = 0;
+    for (let i = 0; i < arrSearch.length; i++) {
+      idx += arrSearch[i].length;
+      if(this._selectionEnd >= idx ) {
+        arrSearch[i] = event.name;
+      }
+    }
+    this.selectedLegacyCode.push(event);
+    // rebuild from selection
+    for (let i=0;i<this.selectedLegacyCode.length;i++){
+      this.texts += this.selectedLegacyCode[i]+' ';
+    }
+    console.log('Selected legacy code', this.selectedLegacyCode);
+    //this.texts = null;
+  }
+
+  private findLegacyCode(text:string):LegacyCode {
+    for (let i = 0; i < this.legacy.legacyCode.length; i++) {
+      if (this.legacy.legacyCode[i].name === text) {
+        return this.legacy.legacyCode[i];
+      }
+    }
+    return new LegacyCode();
   }
 
   testClick():void {

@@ -95,3 +95,29 @@
   </div>
 </div>
 
+<div class="card">
+  <div class="card-block">
+    <div class="card-title">
+      <h5>Test autocomplete</h5>
+    </div>
+    <div class="card-block">
+      <cautocomplete [(ngModel)]="texts"
+                     [suggestions]="results"
+                     (completeMethod)="search($event)"
+                     (onSelect)="onSelectAuto($event)"
+                     [minLength]="2"
+                     [field]="'name'"
+      ></cautocomplete>
+      <hr/>
+      {{texts}}
+      <hr/>
+      <h4>Selected legacy</h4>
+      <ul>
+        <li *ngFor="#legacyCode of selectedLegacyCode">
+          {{legacyCode.name}}
+        </li>
+
+      </ul>
+    </div>
+  </div>
+</div>
