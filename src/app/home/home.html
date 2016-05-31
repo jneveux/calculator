@@ -101,7 +101,7 @@
       <h5>Test autocomplete</h5>
     </div>
     <div class="card-block">
-      <cautocomplete [(ngModel)]="texts"
+      <cautocomplete [(ngModel)]="legacyCode"
                      [suggestions]="results"
                      (completeMethod)="search($event)"
                      (onSelect)="onSelectAuto($event)"
@@ -109,7 +109,7 @@
                      [field]="'name'"
       ></cautocomplete>
       <hr/>
-      {{texts}}
+      {{legacyCode}}
       <hr/>
       <h4>Selected legacy</h4>
       <ul>

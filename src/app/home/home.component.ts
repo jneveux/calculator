@@ -12,24 +12,36 @@ interface Data {
 }
 
 @Component({
-  // The selector is what angular internally uses
-  // for `document.querySelectorAll(selector)` in our index.html
-  // where, in this case, selector is the string 'home'
-  selector: 'home',  // <home></home>
-  // We need to tell Angular's Dependency Injection which providers are in our app.
+  /** The selector is what angular internally uses
+   * for `document.querySelectorAll(selector)` in our index.html
+   * where, in this case, selector is the string 'home'
+   * <home></home>
+   */
+  selector: 'home',
+  /**
+   * We need to tell Angular's Dependency Injection which providers are in our app.
+   */
   providers: [
     Title, ReferenceService
   ],
-  // We need to tell Angular's compiler which directives are in our template.
-  // Doing so will allow Angular to attach our behavior to an element
+  /**
+   * We need to tell Angular's compiler which directives are in our template.
+   * Doing so will allow Angular to attach our behavior to an element
+   */
   directives: [
     XLarge, AutoComplete
   ],
-  // We need to tell Angular's compiler which custom pipes are in our template.
+  /**
+   * We need to tell Angular's compiler which custom pipes are in our template.
+   */
   pipes: [],
-  // Our list of styles in our component. We may add more to compose many styles together
+  /**
+   * Our list of styles in our component. We may add more to compose many styles together
+   */
   styles: [require('./home.css')],
-  // Every Angular template is first compiled by the browser before Angular runs it's compiler
+  /**
+   *  Every Angular template is first compiled by the browser before Angular runs it's compiler
+   */
   template: require('./home.html')
 })
 export class Home {
@@ -38,8 +50,10 @@ export class Home {
   data = {};
   locHour:string = "LOC / Hour";
   legacy:Legacy;
-  // Auto complete fields
-  texts:string;
+  /**
+   * Auto complete field bound to {@link LegacyCode}
+   */
+  legacyCode:LegacyCode;
   results:LegacyCode[];
   selectedLegacyCode:LegacyCode[] = [];
 
@@ -74,6 +88,12 @@ export class Home {
     this.legacy.locRatio = value.locRatio;
   }
 
+
+  /**
+   * Perform a search when keywords are typed in the auto complete input.
+   * @see Component {@link AutoComplete}
+   * @param event
+     */
   search(event):void {
     this.results = [];
     let eventTarget:HTMLInputElement = event.originalEvent.target;
@@ -83,7 +103,7 @@ export class Home {
     let search:string = '';
     if (arrSearch.length > 0) {
       // selection is in the same segment.
-      if (selectionStart === this._selectionEnd && this._selectionEnd === this.texts.length) {
+      if (selectionStart === this._selectionEnd && this._selectionEnd === event.query) {
         search = arrSearch[arrSearch.length - 1];
       } else {
         let idx:number = 0;
@@ -103,35 +123,16 @@ export class Home {
     }
   }
 
+  /**
+   * Adds the selected Legacy Code to the list.
+   * @param event LegacyCode object selected from the auto complete.
+   */
   public onSelectAuto(event:LegacyCode):void {
-    // TODO: Replace text with selection.
-    debugger;
-    let arrSearch:string[] = this.texts.split(' ');
-    let idx:number = 0;
-    for (let i = 0; i < arrSearch.length; i++) {
-      idx += arrSearch[i].length;
-      if(this._selectionEnd >= idx ) {
-        arrSearch[i] = event.name;
-      }
-    }
     this.selectedLegacyCode.push(event);
-    // rebuild from selection
-    for (let i=0;i<this.selectedLegacyCode.length;i++){
-      this.texts += this.selectedLegacyCode[i]+' ';
-    }
     console.log('Selected legacy code', this.selectedLegacyCode);
-    //this.texts = null;
+    this.legacyCode = null;
   }
-
-  private findLegacyCode(text:string):LegacyCode {
-    for (let i = 0; i < this.legacy.legacyCode.length; i++) {
-      if (this.legacy.legacyCode[i].name === text) {
-        return this.legacy.legacyCode[i];
-      }
-    }
-    return new LegacyCode();
-  }
-
+  
   testClick():void {
     console.log('Clicked!');
     this.legacy.selected = this.legacy.legacyCode[0];

@@ -1,13 +1,12 @@
 import {Component} from 'angular2/core';
 
-/*
+console.log('`About` component loaded asynchronously');
+
+/**
  * We're loading this component asynchronously
  * We are using some magic with es6-promise-loader that will wrap the module with a Promise
  * see https://github.com/gdi2290/es6-promise-loader for more info
  */
-
-console.log('`About` component loaded asynchronously');
-
 @Component({
   selector: 'about',
   styles: [`
@@ -29,6 +28,10 @@ export class About {
 
   }
 
+  /**
+   * Init component.
+   * @return void never returns anything.
+   */
   ngOnInit() {
     console.log('hello `About` component');
     // static data that is bundled

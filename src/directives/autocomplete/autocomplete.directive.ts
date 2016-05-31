@@ -29,7 +29,7 @@ const AUTOCOMPLETE_VALUE_ACCESSOR:Provider = CONST_EXPR(
   })
 );
 
-const HIGHLIGHT:string = 'state-active';
+const HIGHLIGHT:string = 'active';
 const A_HIGHLIGHT:string = 'a.'+HIGHLIGHT;
 
 @Component({
@@ -37,7 +37,7 @@ const A_HIGHLIGHT:string = 'a.'+HIGHLIGHT;
   styles: [require('./autocomplete.scss')],
   template: `
         <span 
-          [ngClass]="{'ui-autocomplete ui-widget':true,'ui-autocomplete-dd':dropdown}" 
+          [ngClass]="{'autocomplete-dd':dropdown}" 
           [attr.style]="style" [attr.styleClass]="styleClass">
             <input *ngIf="!multiple" #in cinputtext type="text" 
               [attr.style]="inputStyle" 
