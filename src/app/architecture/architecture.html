@@ -1,0 +1,23 @@
+<div>
+  <h1>Architecture</h1>
+  <div *ngIf="data.types">
+    <a (ng-click)="resetArchitecture()">Reset architecture?</a>
+    <!-- Displays architectures -->
+  </div>
+  <router-outlet></router-outlet>
+  <label>Is N-TIER {{data.ntier}}</label>
+  <div *ngIf="!data.types" class="row clear-fix">
+      <nav class="navbar">
+        <ul  class="nav navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" *ngIf="questions.hasNext" (click)="nextQuestion()">Next</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" *ngIf="questions.hasPrevious" (click)="previousQuestion()">Previous</a>
+          </li>
+
+        </ul>
+
+      </nav>
+    </div>
+</div>

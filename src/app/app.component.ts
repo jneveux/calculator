@@ -7,6 +7,7 @@ import {RouteConfig, Router} from 'angular2/router';
 import {Home} from './home';
 import {AppState} from './app.service';
 import {RouterActive} from './router-active';
+import {ArchitectureComponent} from "./architecture/architecture.component";
 
 /*
  * App Component
@@ -24,6 +25,7 @@ import {RouterActive} from './router-active';
 @RouteConfig([
   {path: '/Index', name: 'Index', component: Home, useAsDefault: true},
   {path: '/home', name: 'Home', component: Home},
+  {path: '/Architecture/...', name: 'Architecture', component: ArchitectureComponent},
   // Async load a component using Webpack's require with es6-promise-loader and webpack `require`
   {path: '/about', name: 'About', loader: () => require('es6-promise!./about')('About')},
 ])

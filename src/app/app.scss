@@ -1,3 +1,8 @@
+/**
+ * Test on bootstrap import.
+ */
+@import '~bootstrap/scss/bootstrap.scss';
+
 $primary-color: #efefef;
 $font-size:     14px;
 
@@ -23,4 +28,8 @@ body {
   font-size: 0.75em;
   margin-top: 0.5em;
   margin-bottom: 0.5em;
+}
+
+.router-link-active {
+  @extend .active;
 }
