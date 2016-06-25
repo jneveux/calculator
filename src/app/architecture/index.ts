@@ -1,4 +1,4 @@
 /**
- * Created by jean on 05/06/2016.
+ * Created by jean on 6/25/16.
  */
 export * from './architecture.component';

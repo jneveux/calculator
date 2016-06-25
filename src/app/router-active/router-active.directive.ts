@@ -1,16 +1,15 @@
-import {Router} from 'angular2/router';
-import {isPresent} from 'angular2/src/facade/lang';
 import {
+  Attribute,
   Directive,
+  ElementRef,
+  Input,
+  Optional,
   Query,
   QueryList,
-  Attribute,
-  ElementRef,
-  Renderer,
-  Optional,
-  Input
-} from 'angular2/core';
-import {Instruction, RouterLink} from 'angular2/router';
+  Renderer
+} from '@angular/core';
+import { isPresent } from '@angular/core/src/facade/lang';
+import { Instruction, Router, RouterLink } from '@angular/router-deprecated';
 
 /**
  * RouterActive dynamically finds the first element with routerLink and toggles the active class
@@ -23,10 +22,10 @@ import {Instruction, RouterLink} from 'angular2/router';
  * ```
  */
 @Directive({
-  selector: '[router-active], [routerActive]'
+  selector: '[router-active]'
 })
 export class RouterActive {
-  @Input() routerActive: string = null;
+  @Input() routerActive: string = undefined;
   routerActiveAttr: string = 'active';
 
   constructor(
@@ -36,7 +35,7 @@ export class RouterActive {
     @Query(RouterLink) public routerLink: QueryList<RouterLink>,
     @Optional() @Attribute('router-active') routerActiveAttr?: string) {
 
-      this.routerActiveAttr = this._defaultAttrValue(routerActiveAttr);
+    this.routerActiveAttr = this._defaultAttrValue(routerActiveAttr);
   }
 
   ngOnInit() {
@@ -51,7 +50,7 @@ export class RouterActive {
   }
 
   private _findRootRouter(): Router {
-    var router: Router = this.router;
+    let router: Router = this.router;
     while (isPresent(router.parent)) {
       router = router.parent;
     }

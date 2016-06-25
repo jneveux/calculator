@@ -1,5 +1,5 @@
-import {Injectable} from 'angular2/core';
-import {Http} from 'angular2/http';
+import {Injectable} from '@angular/core';
+import {Http} from '@angular/http';
 
 export class Legacy {
   loc:number;
@@ -26,6 +26,7 @@ export class ReferenceService {
 
   getData() {
     console.log('ReferenceService#getData(): Get Data');
+    //noinspection TypeScriptUnresolvedFunction
     return this.http.get('/assets/json/references.json').map(res => res.json());
   }
 }

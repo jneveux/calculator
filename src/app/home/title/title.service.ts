@@ -1,5 +1,5 @@
-import {Injectable} from 'angular2/core';
-import {Http} from 'angular2/http';
+import {Injectable} from '@angular/core';
+import {Http} from '@angular/http';
 
 @Injectable()
 export class Title {
@@ -10,6 +10,7 @@ export class Title {
 
   getData() {
     console.log('Title#getData(): Get Data');
+    //noinspection TypeScriptUnresolvedFunction
     return this.http.get('/assets/data.json').map(res => res.json());
     // return {
     //   value: 'AngularClass'

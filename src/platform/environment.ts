@@ -1,29 +1,46 @@
-// Angular 2 browser
-import {
-  ELEMENT_PROBE_PROVIDERS,
-  ELEMENT_PROBE_PROVIDERS_PROD_MODE
-} from 'angular2/platform/browser';
 
 // Angular 2
-import {enableProdMode} from 'angular2/core';
-
+// rc2 workaround
+import { enableProdMode as enableProdMode0 } from '@angular/core/src/facade/lang';
+import { enableProdMode as enableProdMode1 } from '@angular/compiler/src/facade/lang';
+import { enableProdMode as enableProdMode2 } from '@angular/platform-browser/src/facade/lang';
+import { CompilerConfig } from '@angular/compiler';
+import { PLATFORM_DIRECTIVES, PLATFORM_PIPES } from '@angular/core';
 // Environment Providers
-var PROVIDERS = [];
+let PROVIDERS = [
+  // common env directives
+];
 
 if ('production' === ENV) {
   // Production
-  enableProdMode();
+  enableProdMode0();
+  enableProdMode1();
+  enableProdMode2();
 
   PROVIDERS = [
     ...PROVIDERS,
-    ELEMENT_PROBE_PROVIDERS_PROD_MODE
+    // rc2 workaround
+    {
+      provide: CompilerConfig,
+      useFactory: (platformDirectives: any[], platformPipes: any[]) => {
+        let compiler = new CompilerConfig({
+          genDebugInfo: true,
+          logBindingUpdate: true,
+          platformPipes,
+          platformDirectives
+        });
+        return compiler;
+      },
+      deps: [PLATFORM_DIRECTIVES, PLATFORM_PIPES]
+    },
+    // custom providers in production
   ];
 
 } else {
   // Development
   PROVIDERS = [
     ...PROVIDERS,
-    ELEMENT_PROBE_PROVIDERS
+    // custom providers in development
   ];
 
 }

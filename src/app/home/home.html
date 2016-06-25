@@ -5,7 +5,7 @@
       <span *ngIf="!legacy.selected"><h5>Select your Language</h5></span>
     </div>
     <div class="btn-group" data-toggle="buttons">
-      <label class="btn btn-secondary" *ngFor="#lcode of legacy.legacyCode"
+      <label class="btn btn-secondary" *ngFor="let lcode of legacy.legacyCode"
              (click)="selectCode(lcode)"
              [class.active]="legacy.selected && legacy.selected.id == lcode.id">
         <input type="radio"
@@ -25,7 +25,7 @@
       <div class="form-group row col-md-4">
         <label>Lines Of Code (LOC)</label>
         <div class="col-md-3">
-          <input type="number" id="legacyLOC" [(ngModel)]="legacy.loc" class="form-control"/>
+          <input type="number" id="legacyLOC" name="loc" [(ngModel)]="legacy.loc" class="form-control"/>
         </div>
       </div>
       <div class="form-group row col-md-4">
@@ -58,13 +58,13 @@
           <div class="form-group">
             <label>{{legacy.locRatio}} {{locHour}}</label>
             <div class="col-md-3" data-toggle="buttons">
-              <input type="range" min=0 max=3000 [(ngModel)]="legacy.locRatio" class="form-control"/>
+              <input type="range" min=0 max=3000 name="locRatio" [(ngModel)]="legacy.locRatio" class="form-control"/>
             </div>
           </div>
           <div class="form-group">
             <label>{{legacy.offshore}} % Offshore</label>
             <div class="col-md-3" data-toggle="buttons">
-              <input type="range" min=0 max=100 [(ngModel)]="legacy.offshore" class="form-control"/>
+              <input type="range" min=0 max=100 name="offShore" [(ngModel)]="legacy.offshore" class="form-control"/>
             </div>
           </div>
         </div>
@@ -86,7 +86,8 @@
             <div class="col-xs-4">0</div>
           </div>
           <div class="row">
-            <div class="col-xs-8">Build Budget per LOC (USD)</div>
+            <div class="col-xs-8">Build Budget
+              LOC (USD)</div>
             <div class="col-xs-4">0.00$</div>
           </div>
         </div>
@@ -101,7 +102,7 @@
       <h5>Test autocomplete</h5>
     </div>
     <div class="card-block">
-      <cautocomplete [(ngModel)]="legacyCode"
+      <cautocomplete name="cauto" [(ngModel)]="texts"
                      [suggestions]="results"
                      (completeMethod)="search($event)"
                      (onSelect)="onSelectAuto($event)"
@@ -109,11 +110,11 @@
                      [field]="'name'"
       ></cautocomplete>
       <hr/>
-      {{legacyCode}}
+      {{texts}}
       <hr/>
       <h4>Selected legacy</h4>
       <ul>
-        <li *ngFor="#legacyCode of selectedLegacyCode">
+        <li *ngFor="let legacyCode of selectedLegacyCode">
           {{legacyCode.name}}
         </li>
 

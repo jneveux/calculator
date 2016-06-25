@@ -1,4 +1,4 @@
-import {Component} from 'angular2/core';
+import {Component} from '@angular/core';
 import {AppState} from '../app.service';
 import {AutoComplete} from '../../directives/autocomplete/autocomplete.directive';
 
@@ -60,13 +60,17 @@ export class Home {
   private _selectionEnd:number = 0;
 
   constructor(public appState:AppState, public title:Title, public referenceService:ReferenceService) {
-
+    this.legacy = new Legacy();
   }
 
   ngOnInit() {
     console.log('hello `Home` component');
     this.title.getData().subscribe(data => this.data = data);
-    this.referenceService.getData().subscribe(data => this.legacy.legacyCode = data.legacyCode);
+    this.referenceService.getData().subscribe(data => {
+        console.log('Data', data);
+        this.legacy.legacyCode = data.legacyCode;
+      }
+    );
     this.legacy = new Legacy();
     this.legacy.loc = 0;
     this.legacy.locRatio = 0;

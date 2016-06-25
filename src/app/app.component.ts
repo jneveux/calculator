@@ -28,6 +28,7 @@ import {ArchitectureComponent} from "./architecture/architecture.component";
   {path: '/Architecture/...', name: 'Architecture', component: ArchitectureComponent},
   // Async load a component using Webpack's require with es6-promise-loader and webpack `require`
   {path: '/about', name: 'About', loader: () => require('es6-promise!./about')('About')},
+  {path: '/architecture', name:'Architecture', component: ArchitectureComponent},
 ])
 export class App {
   angularclassLogo = 'assets/img/angularclass-avatar.png';
