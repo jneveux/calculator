@@ -119,6 +119,7 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,Cont
 
   @Input() multiple:boolean;
 
+  //noinspection TypeScriptValidateTypes
   @ContentChild(TemplateRef) itemTemplate: TemplateRef<any>;
 
   value:any;
@@ -129,7 +130,7 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,Cont
   onModelTouched:Function = () => {
   };
 
-  timeout:number;
+  timeout:any; // Bug with TS?
 
   differ:any;
 
@@ -415,6 +416,6 @@ export class AutoComplete implements AfterViewInit,DoCheck,AfterViewChecked,Cont
       this.documentClickListener();
     }
   }
-  
-  
+
+
 }
